@@ -3,7 +3,15 @@ module.exports = {
   // mode: 'jit',
   darkMode: false, // or 'media' or 'class'
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        paylend: {
+          light: '#DB2777',
+          DEFAULT: '#DB2777',
+          dark: '#991b53'
+        }
+      },
+    },
   },
   variants: {
     extend: {},
