@@ -1,8 +1,18 @@
+import { Helmet } from "react-helmet"
+import Layout from "./Components/Layout"
+
 function App() {
   return (
-    <div className="App">
-      Team paylend let's start
-    </div>
+    <>
+      <Helmet>
+        <title>Team Paylend</title>
+        <meta name="description" content="Welcome to Team Paylend. A community built around fintech" />
+      </Helmet>
+
+      <Layout>
+        yes here
+      </Layout>
+    </>
   );
 }
 
