@@ -1,3 +1,28 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components {
+  .navbar-btn {
+    @apply py-1 px-3 rounded-md text-white  border-2 border-white transition duration-200 ease-in hover:bg-white hover:text-paylend-dark;
+  }
+
+  .btn-edit {
+    @apply py-2 px-8 bg-paylend text-white rounded-3xl shadow-lg transition duration-200 ease-in hover:bg-paylend-dark hover:shadow-xl;
+  }
+}
+
+@layer utilities {
+  .page-bg {
+    background-image: linear-gradient(
+        180deg,
+        rgba(0, 0, 0, 0.25),
+        rgba(0, 0, 0, 0.8)
+      ),
+      url('./assets/images/boat.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+  }
+}
