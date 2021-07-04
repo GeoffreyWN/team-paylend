@@ -6,7 +6,7 @@ module.exports = {
     extend: {
       colors: {
         paylend: {
-          light: '#DB2777',
+          light: '#e668a0',
           DEFAULT: '#DB2777',
           dark: '#991b53'
         }
@@ -16,5 +16,5 @@ module.exports = {
   variants: {
     extend: {},
   },
-  plugins: [],
+  plugins: [require('@tailwindcss/forms')],
 }
