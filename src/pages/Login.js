@@ -1,6 +1,18 @@
 import LoginForm from "../Components/Forms/Auth/LoginForm"
+import { useSelector } from 'react-redux'
+import { Redirect } from 'react-router-dom'
+import { selectAuthStatus } from "../slices/authSlice"
+
+
+
 
 const Login = () => {
+    const isAuthenticated = useSelector(selectAuthStatus)
+
+    if (isAuthenticated) {
+        return <Redirect to="/dashboard" />
+    }
+
     return (
         <div className="page-bg pt-40 pb-64 px-8  h-full">
             <div

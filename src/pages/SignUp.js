@@ -1,10 +1,15 @@
 import SignUpForm from "../Components/Forms/Auth/SignUpForm"
+import { useSelector } from 'react-redux'
+import { Redirect } from 'react-router-dom'
+import { selectAuthStatus } from "../slices/authSlice"
 
 
 const SignUp = () => {
-    // const location = useLocation()
-    // const { pathname } = location
-    // console.log(pathname)
+    const isAuthenticated = useSelector(selectAuthStatus)
+
+    if (isAuthenticated) {
+        return <Redirect to="/dashboard" />
+    }
 
 
 
