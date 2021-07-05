@@ -1,8 +1,24 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { Link } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
+import { selectAuthStatus, logout } from '../../../slices/authSlice'
+import { useHistory } from "react-router-dom";
+
+
 
 const Header = () => {
-    const [isLoggedIn, setIsLoggedIn] = useState(true)
+    const isAuthenticated = useSelector(selectAuthStatus)
+    console.log(isAuthenticated)
+
+    const dispatch = useDispatch()
+    const history = useHistory()
+    const logoutUser = () => {
+        dispatch(logout())
+        history.push("/login");
+        console.log('logout clikced')
+    }
+
+
 
     return (
         <div className=" px-8 bg-paylend-dark" >
@@ -16,7 +32,7 @@ const Header = () => {
                 <div className="flex gap-8">
                     {/* <button className="py-2 px-3 rounded-md text-white transition duration-200 ease-in hover:bg-white hover:text-paylend    ">Dashboard</button> */}
 
-                    {isLoggedIn ? (<Link to='/dashboard' className="navbar-btn">My Acccount</Link>
+                    {isAuthenticated ? (<button onClick={logoutUser} className="navbar-btn">Log out</button>
                     ) : (
                         <>
                             <Link to='/login' className="navbar-btn">Login</Link>

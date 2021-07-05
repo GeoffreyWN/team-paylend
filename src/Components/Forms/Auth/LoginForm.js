@@ -1,5 +1,8 @@
 import React, { useState } from 'react'
 import { Link } from "react-router-dom"
+import { useDispatch } from 'react-redux'
+import { login } from '../../../slices/authSlice'
+
 
 const initialState = {
     email: '',
@@ -10,6 +13,8 @@ const LoginForm = () => {
 
     const { email, password } = formValues
 
+    const dispatch = useDispatch()
+
     const handleChange = (e) => {
         setFormValues({ ...formValues, [e.target.name]: e.target.value })
     }
@@ -17,6 +22,7 @@ const LoginForm = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
         console.log(formValues)
+        dispatch(login(formValues))
         setFormValues(initialState)
     }
 

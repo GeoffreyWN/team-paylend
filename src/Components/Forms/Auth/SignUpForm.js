@@ -1,4 +1,7 @@
 import React, { useState } from 'react'
+import { useDispatch } from 'react-redux'
+import { signup } from '../../../slices/authSlice'
+
 
 const initialState = {
     fname: '',
@@ -21,9 +24,14 @@ const SignUpForm = () => {
         setFormValues({ ...formValues, [name]: value })
     }
 
-    const handleSubmit = (e) => {
+    const dispatch = useDispatch()
+
+    const handleSubmit = async (e) => {
         e.preventDefault();
         console.log(formValues)
+
+        dispatch(signup(formValues))
+
         setFormValues(initialState)
     }
 
@@ -54,8 +62,7 @@ const SignUpForm = () => {
 
                         <label className="block text-left shadow-lg">
                             <span className="text-white text-md md:text-lg"
-                            >Last Name</span
-                            >
+                            >Last Name</span>
                             <input
                                 type="text"
                                 value={lname}
