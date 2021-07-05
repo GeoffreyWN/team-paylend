@@ -1,4 +1,4 @@
 {
-    "mongoURI": "mongodb+srv://sammy:mX1hWba5cz99MHYi@cluster0.nvnuz.mongodb.net/myFirstDatabase?retryWrites=true&w=majority",
+    "mongoURI": "mongodb://127.0.0.1:27017/teampaylend",
     "jwtThingy": "T3@mp@yL3nd2O2!"
 }

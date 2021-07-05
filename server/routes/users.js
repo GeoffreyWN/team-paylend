@@ -31,6 +31,7 @@ router.post('/register', [
         try {
             //check if user existsSync
             let user = await User.findOne({ email })
+            console.log('i was hit')
 
             if (user) {
                 return res.status(422).json({ errors: [{ msg: `User with email ${email} already exists` }] })
@@ -55,7 +56,7 @@ router.post('/register', [
 
             jwt.sign(payload, config.get('jwtThingy'), { expiresIn: 360000 }, (err, token) => {
                 if (err) throw err
-                res.json({ token })
+                res.json({ user, token })
             })
 
         } catch (error) {
@@ -106,7 +107,7 @@ router.post('/login', [
 
             jwt.sign(payload, config.get('jwtThingy'), { expiresIn: 360000 }, (err, token) => {
                 if (err) throw err;
-                res.json({ token })
+                res.json({ user, token })
             })
 
         } catch (error) {
@@ -137,7 +138,7 @@ router.post('/update', [auth, [
         }
 
         const { fname, lname, email, gender, dob, password, confirmPassword } = req.body
-        
+
 
         try {
 
@@ -148,8 +149,8 @@ router.post('/update', [auth, [
             const salt = await bcrypt.genSalt(10)
             user.password = await bcrypt.hash(password, salt)
 
-            if(user) {
-                user = await User.findOneAndUpdate({email}, {$set: {fname, lname, gender, dob}}, {new:true} )
+            if (user) {
+                user = await User.findOneAndUpdate({ email }, { $set: { fname, lname, gender, dob } }, { new: true })
             }
 
             return res.json(user)
