@@ -1,6 +1,6 @@
 import { Helmet } from "react-helmet"
 import Layout from "./Components/Layout"
-import { BrowserRouter, Route, Switch } from 'react-router-dom'
+import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom'
 
 import Login from './pages/Login'
 import SignUp from './pages/SignUp'
@@ -31,6 +31,9 @@ function App() {
             <PrivateRoute exact path='/update/:userId' component={UpdateProfile} />
             <Route path="/login" exact component={Login} />
             <Route path="/signup" exact component={SignUp} />
+            <Route exact path="/">
+              <Redirect to="/login" />
+            </Route>
           </Switch>
         </Layout>
       </BrowserRouter>
