@@ -5,6 +5,7 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom'
 import Login from './pages/Login'
 import SignUp from './pages/SignUp'
 import Dashboard from './pages/Dashboard'
+import UpdateProfile from './pages/UpdateProfile'
 import PrivateRoute from "./routing/PrivateRoute"
 import setAuthToken from "./utils/setAuthToken"
 import { Provider } from 'react-redux'
@@ -26,8 +27,8 @@ function App() {
       <BrowserRouter>
         <Layout>
           <Switch>
-            {/* <Route path="/dashboard" exact component={Dashboard} /> */}
-            <PrivateRoute exact path='/dashboard' component={ Dashboard } />
+            <PrivateRoute exact path='/dashboard' component={Dashboard} />
+            <PrivateRoute exact path='/update/:userId' component={UpdateProfile} />
             <Route path="/login" exact component={Login} />
             <Route path="/signup" exact component={SignUp} />
           </Switch>

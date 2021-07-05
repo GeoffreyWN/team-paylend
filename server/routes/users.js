@@ -117,11 +117,37 @@ router.post('/login', [
     }
 )
 
+// @router   GET api/users
+// @desc     fetch user
+// @access   private
+router.get('/fetchuser/:userId', [auth],
+    async (req, res) => {
+        const user_id = req.params.userId
+        try {
+            //check if user exists
+            let user = await User.findOne({ _id: user_id });
+            if (!user) {
+                return res.status(400).json({ errors: [{ msg: 'User not found!' }] });
+            }
+
+            return res.json(user)
+
+
+        } catch (error) {
+            console.error(error.message)
+            if (error.kind === 'ObjectId') {
+                return res.status(400).json({ msg: `No profile exists for user with id: ${req.params.user_id}` })
+            }
+            return res.status(500).json({ msg: 'Servor Error' })
+        }
+    }
+)
+
 
 // @router   PUT api/users
 // @desc     update profile
 // @access   private
-router.post('/update', [auth, [
+router.post('/update/:userId', [ [
     check('fname', 'First Name is required').not().isEmpty(),
     check('lname', 'Last Name is required').not().isEmpty(),
     check('email', 'Please include a valid email').isEmail(),

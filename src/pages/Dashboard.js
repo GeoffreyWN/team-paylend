@@ -4,15 +4,14 @@ import Avatar from '../assets/images/avatar.png'
 import { selectLoggedInUser } from '../slices/authSlice'
 import { useSelector } from 'react-redux'
 import Moment from 'react-moment';
-
-
-
+import { useHistory } from "react-router-dom";
 
 
 
 const Dashboard = () => {
     const loggedInUser = useSelector(selectLoggedInUser)
     const { email, fname, lname, gender, dob } = loggedInUser
+    const history = useHistory()
     console.log(loggedInUser)
     return (
         <div className="bg-red-50 py-10 px-8 my-auto" >
@@ -40,7 +39,7 @@ const Dashboard = () => {
                 </div>
 
                 <div className="flex justify-center">
-                    <button className="btn-edit flex items-center"> <PencilAltIcon className="h-5 pr-2" /> Edit  </button>
+                    <button className="btn-edit flex items-center" onClick={() => history.push(`/update/${loggedInUser._id}`)}> <PencilAltIcon className="h-5 pr-2" /> Edit  </button>
                 </div>
 
             </div>
