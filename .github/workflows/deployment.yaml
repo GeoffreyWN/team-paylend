@@ -1,0 +1,25 @@
+name: Deploy via remote ssh
+on: [push]
+jobs:
+
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    steps:
+    - name: executing remote ssh commands
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ secrets.SSH_HOST }}
+        username: ${{ secrets.SSH_USERNAME }}
+        key: ${{ secrets.SSH_KEY }}
+        port: ${{ secrets.SSH_PORT }}
+        script: |
+          cd ${{ SSH_PATH }}
+          git reset --hard
+          git pull origin HEAD
+          npm install
+          npm run build
+          rm -R node_modules/
+          cd server
+          npm install
+          sudo supervisorctl restart paylend-worker:*
