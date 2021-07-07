@@ -4,7 +4,7 @@
 
 @layer components {
   .navbar-btn {
-    @apply py-1 px-3 rounded-md text-white  border-2 border-white transition duration-200 ease-in hover:bg-white hover:text-paylend-dark;
+    @apply py-1 px-2 md:px-3 rounded-md text-white  border-2 border-white transition duration-200 ease-in hover:bg-white hover:text-paylend-dark;
   }
 
   .btn-edit {

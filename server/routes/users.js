@@ -170,7 +170,7 @@ router.post('/update/:userId', [[
             let user = await User.findOne({ email })
 
             if (user) {
-                user = await User.findOneAndUpdate({ email }, { $set: { fname, lname, gender, dob } }, { new: true })
+                user = await User.findOneAndUpdate({ email }, { $set: { fname, lname, gender, dob } }, { new: true }).select('-password')
             }
             // console.log('update was hit', user)
             return res.json(user)

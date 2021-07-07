@@ -21,7 +21,6 @@ const LoginForm = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log(formValues)
         dispatch(login(formValues))
         setFormValues(initialState)
     }
@@ -33,7 +32,7 @@ const LoginForm = () => {
             </h2>
             <div className="mt-6 mx-auto ">
                 <form onSubmit={e => handleSubmit(e)}  >
-                    <div className="grid grid-cols-1 md:grid-cols-1 gap-4 md:gap-8">
+                    <div className="grid grid-cols-1 md:grid-cols-1 gap-8 md:gap-8">
                         <label className="block text-left shadow-lg">
                             <span className="text-white text-md md:text-lg"
                             >Email address</span
