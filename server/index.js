@@ -14,7 +14,7 @@ app.use(express.json({ extended: false }))
 app.use(cors())
 
 //test route
-// app.get('/', (req, res) => res.send('Team Paylend backend API Running'))
+app.get('/', (req, res) => res.send('Team Paylend backend API Running'))
 
 app.use('/api/v1/users', require('./routes/users'))
 
