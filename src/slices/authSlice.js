@@ -54,7 +54,7 @@ export const signup = ({ fname, lname, email, gender, password, confirmPassword,
                 'Content-Type': 'application/json'
             }
         }
-        const res = await axios.post('http://127.0.0.1:5000/api/v1/users/register', { fname, lname, email, gender, password, confirmPassword, dob }, config)
+        const res = await axios.post('/api/v1/users/register', { fname, lname, email, gender, password, confirmPassword, dob }, config)
         console.log(res.data)
         dispatch(signupAction(res.data));
     } catch (error) {
@@ -72,7 +72,7 @@ export const updateuser = ({ id, fname, lname, email, gender, password, confirmP
                 'x-auth-token': localStorage.getItem('token')
             }
         }
-        const res = await axios.post(`http://127.0.0.1:5000/api/v1/users/update/${id}`, { fname, lname, email, gender, password, confirmPassword, dob }, config)
+        const res = await axios.post(`/api/v1/users/update/${id}`, { fname, lname, email, gender, password, confirmPassword, dob }, config)
         // console.log(res.data)
         dispatch(updateUser(res.data));
     } catch (error) {
@@ -89,7 +89,7 @@ export const login = ({ email, password }) => async dispatch => {
                 'Content-Type': 'application/json'
             }
         }
-        const res = await axios.post('http://127.0.0.1:5000/api/v1/users/login', { email, password }, config)
+        const res = await axios.post('/api/v1/users/login', { email, password }, config)
         console.log(res.data)
         dispatch(loginSuccess(res.data));
     } catch (error) {
