@@ -7,8 +7,7 @@ const Footer = () => {
             <p className="flex items-center text-base md:text-lg justify-center">
                 Built with &nbsp;<HeartIcon className="h-8 text-paylend-dark opacity-80" /> &nbsp; by
                 <span className="text-paylend-dark font-semibold cursor-pointer">
-                    &nbsp; GeoffreyWN</span
-                >
+                    &nbsp; <a href="https://github.com/GeoffreyWN" rel="noreferrer" target="_blank">GeoffreyWN</a></span>
             </p>
         </div>
     )
