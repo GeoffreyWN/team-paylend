@@ -6,7 +6,7 @@ const Auth = (req, res, next) => {
 
     //deny access if token does not exist
     if (!token) {
-        return res.status(401).json({ msg: 'Access denied, not authorised' })
+        return res.status(403).json({ msg: 'Access denied, not authorised' })
     }
     //verify provided token
     try {

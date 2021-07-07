@@ -34,7 +34,7 @@ router.post('/register', [
             console.log('i was hit')
 
             if (user) {
-                return res.status(422).json({ errors: [{ msg: `User with email ${email} already exists` }] })
+                return res.status(409).json({ errors: [{ msg: `User with email ${email} already exists` }] })
             }
 
             if (password !== confirmPassword) {
@@ -56,7 +56,7 @@ router.post('/register', [
 
             jwt.sign(payload, config.get('jwtThingy'), { expiresIn: 360000 }, (err, token) => {
                 if (err) throw err
-                res.json({ user, token })
+                res.status(200).json({ user, token })
             })
 
         } catch (error) {
@@ -107,7 +107,7 @@ router.post('/login', [
 
             jwt.sign(payload, config.get('jwtThingy'), { expiresIn: 360000 }, (err, token) => {
                 if (err) throw err;
-                res.json({ user, token })
+                res.status(200).json({ user, token })
             })
 
         } catch (error) {
@@ -147,14 +147,14 @@ router.get('/fetchuser/:userId', [auth],
 // @router   PUT api/users
 // @desc     update profile
 // @access   private
-router.post('/update/:userId', [ [
+router.post('/update/:userId', [[
     check('fname', 'First Name is required').not().isEmpty(),
     check('lname', 'Last Name is required').not().isEmpty(),
     check('email', 'Please include a valid email').isEmail(),
     check('gender', 'Gender is required').not().isEmpty(),
     check('dob', 'Date of birth is required').not().isEmpty(),
-    check('password', 'Please enter a password with more than 5 chars').isLength({ min: 5 }),
-    check('confirmPassword', 'Please enter a password with more than 5 chars').isLength({ min: 5 })
+    // check('password', 'Please enter a password with more than 5 chars').isLength({ min: 5 }),
+    // check('confirmPassword', 'Please enter a password with more than 5 chars').isLength({ min: 5 })
 ]],
     async (req, res) => {
         const errors = validationResult(req)
@@ -163,22 +163,16 @@ router.post('/update/:userId', [ [
             return res.status(400).json({ errors: errors.array() })
         }
 
-        const { fname, lname, email, gender, dob, password, confirmPassword } = req.body
-
+        const { fname, lname, email, gender, dob } = req.body
 
         try {
 
             let user = await User.findOne({ email })
-            if (password !== confirmPassword) {
-                return res.status(422).json({ errors: [{ msg: `Password and confirm password do not match` }] })
-            }
-            const salt = await bcrypt.genSalt(10)
-            user.password = await bcrypt.hash(password, salt)
 
             if (user) {
                 user = await User.findOneAndUpdate({ email }, { $set: { fname, lname, gender, dob } }, { new: true })
             }
-
+            // console.log('update was hit', user)
             return res.json(user)
 
         } catch (error) {

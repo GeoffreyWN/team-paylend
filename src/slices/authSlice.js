@@ -6,47 +6,45 @@ import { createSlice } from '@reduxjs/toolkit'
 // Slice
 const initialState = {
     token: localStorage.getItem('token'),
-    isAuthenticated: false,
-    user: null,
+    user: localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')) : null,
 };
 
-const slice = createSlice({
-    name: 'user',
+const authSlice = createSlice({
+    name: 'auth',
     initialState,
     reducers: {
         signupAction: (state, action) => {
             state.user = action.payload.user
-            state.isAuthenticated = true;
             localStorage.setItem('token', JSON.stringify(action.payload.token))
+            localStorage.setItem('user', JSON.stringify(action.payload.user))
 
         },
 
         updateUser: (state, action) => {
-            state.user = action.payload.user
-            state.isAuthenticated = true;
-            localStorage.setItem('token', JSON.stringify(action.payload.token))
+            state.user = action.payload
+            localStorage.setItem('user', JSON.stringify(action.payload))
 
         },
         loginSuccess: (state, action) => {
-            state.isAuthenticated = true;
             state.user = action.payload.user
             localStorage.setItem('token', JSON.stringify(action.payload.token))
+            localStorage.setItem('user', JSON.stringify(action.payload.user))
 
         },
         logoutSuccess: (state, action) => {
             state.token = null;
             state.user = null;
-            state.isAuthenticated = false;
             localStorage.removeItem('token')
+            localStorage.removeItem('user')
         },
     },
 });
 
-export default slice.reducer
+export default authSlice.reducer
 
 // Actions
 
-const { loginSuccess, logoutSuccess, signupAction, updateUser } = slice.actions
+const { loginSuccess, logoutSuccess, signupAction, updateUser } = authSlice.actions
 
 export const signup = ({ fname, lname, email, gender, password, confirmPassword, dob }) => async dispatch => {
     try {
@@ -75,7 +73,7 @@ export const updateuser = ({ id, fname, lname, email, gender, password, confirmP
             }
         }
         const res = await axios.post(`http://127.0.0.1:5000/api/v1/users/update/${id}`, { fname, lname, email, gender, password, confirmPassword, dob }, config)
-        console.log(res.data)
+        // console.log(res.data)
         dispatch(updateUser(res.data));
     } catch (error) {
         alert(error.response.data.errors[0].msg)
@@ -110,6 +108,5 @@ export const logout = () => async dispatch => {
 
 
 // Selectors pull info from the Global store slice
-export const selectAuthStatus = (state) => state.auth.isAuthenticated;
 export const selectLoggedInUser = (state) => state.auth.user;
 

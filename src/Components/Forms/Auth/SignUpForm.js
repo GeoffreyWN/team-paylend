@@ -187,7 +187,7 @@ const SignUpForm = () => {
                             className="py-2 px-6 text-white bg-paylend hover:bg-paylend-dark  rounded-lg shadow-md"
                             type='submit'
                         >
-                            Login
+                            Sign Up
                         </button>
                     </div>
                 </form>

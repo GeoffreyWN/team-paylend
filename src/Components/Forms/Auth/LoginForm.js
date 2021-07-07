@@ -72,7 +72,7 @@ const LoginForm = () => {
                         </button>
                     </div>
                 </form>
-                <p className="text-center"> Create an account today! <Link to='/signup' className="text-white" > Sign Up</Link> </p>
+                <p className="text-center text-white"> Create an account today! <Link to='/signup' className="text-paylend" > Sign Up</Link> </p>
             </div>
         </>
     )

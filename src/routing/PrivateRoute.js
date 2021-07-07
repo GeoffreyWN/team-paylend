@@ -2,19 +2,19 @@ import React from 'react'
 // import PropTypes from 'prop-types'
 // import { connect } from 'react-redux'
 import { Redirect, Route } from 'react-router-dom'
-import { selectAuthStatus } from '../slices/authSlice'
+import { selectLoggedInUser } from '../slices/authSlice'
 import { useSelector } from 'react-redux'
 
 
 
 const PrivateRoute = ({ component: Component, ...rest }) => {
-    const isAuthenticated = useSelector(selectAuthStatus)
+    const user = useSelector(selectLoggedInUser)
 
 
-    return(
-        <Route {...rest} render={props => !isAuthenticated ? (<Redirect to="/login" />) : (<Component {...props} />)} />
+    return (
+        <Route {...rest} render={props => !user ? (<Redirect to="/login" />) : (<Component {...props} />)} />
     )
-   
+
 }
 
 // PrivateRoute.propTypes = {

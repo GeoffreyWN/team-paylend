@@ -1,15 +1,15 @@
 import LoginForm from "../Components/Forms/Auth/LoginForm"
 import { useSelector } from 'react-redux'
 import { Redirect } from 'react-router-dom'
-import { selectAuthStatus } from "../slices/authSlice"
+import { selectLoggedInUser } from "../slices/authSlice"
 
 
 
 
 const Login = () => {
-    const isAuthenticated = useSelector(selectAuthStatus)
+    const user = useSelector(selectLoggedInUser)
 
-    if (isAuthenticated) {
+    if (user) {
         return <Redirect to="/dashboard" />
     }
 

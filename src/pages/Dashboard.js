@@ -12,7 +12,6 @@ const Dashboard = () => {
     const loggedInUser = useSelector(selectLoggedInUser)
     const { email, fname, lname, gender, dob } = loggedInUser
     const history = useHistory()
-    console.log(loggedInUser)
     return (
         <div className="bg-red-50 py-10 px-8 my-auto" >
             <div className=" px-4 py-10 my-10 max-w-screen-md mx-auto space-y-8 bg-red-100 rounded-xl shadow-xl flex flex-col justify-center items-center">
@@ -39,7 +38,7 @@ const Dashboard = () => {
                 </div>
 
                 <div className="flex justify-center">
-                    <button className="btn-edit flex items-center" onClick={() => history.push(`/update/${loggedInUser._id}`)}> <PencilAltIcon className="h-5 pr-2" /> Edit  </button>
+                    <button className="btn-edit flex items-center" onClick={() => history.push(`/user/${loggedInUser._id}`)}> <PencilAltIcon className="h-5 pr-2" /> Edit  </button>
                 </div>
 
             </div>

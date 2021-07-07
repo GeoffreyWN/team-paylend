@@ -1,14 +1,13 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
-import { selectAuthStatus, logout } from '../../../slices/authSlice'
+import { selectLoggedInUser, logout } from '../../../slices/authSlice'
 import { useHistory } from "react-router-dom";
 
 
 
 const Header = () => {
-    const isAuthenticated = useSelector(selectAuthStatus)
-    console.log(isAuthenticated)
+    const user = useSelector(selectLoggedInUser)
 
     const dispatch = useDispatch()
     const history = useHistory()
@@ -24,15 +23,17 @@ const Header = () => {
         <div className=" px-8 bg-paylend-dark" >
             <nav className=" py-6 flex max-w-screen-xl  mx-auto ">
                 {/* left */}
+                <div className="">
+                    <h1 className="text-2xl text-white cursor-pointer scale-100 transition duration-200 transform hover:scale-105 hover:text-red-200 hover:font-semibold " onClick={() => history.push('/dashboard')}>Team Paylend</h1>
+                </div>
                 <div className="flex-grow">
-                    <h1 className="text-2xl text-white">Team Paylend</h1>
                 </div>
 
                 {/* right */}
                 <div className="flex gap-8">
                     {/* <button className="py-2 px-3 rounded-md text-white transition duration-200 ease-in hover:bg-white hover:text-paylend    ">Dashboard</button> */}
 
-                    {isAuthenticated ? (<button onClick={logoutUser} className="navbar-btn">Log out</button>
+                    {user ? (<button onClick={logoutUser} className="navbar-btn">Log out</button>
                     ) : (
                         <>
                             <Link to='/login' className="navbar-btn">Login</Link>

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { selectLoggedInUser } from '../slices/authSlice'
 import { useSelector, useDispatch } from 'react-redux'
 import { useHistory } from 'react-router-dom'
@@ -7,25 +7,21 @@ import { updateuser } from '../slices/authSlice'
 
 const UpdateProfile = () => {
     const loggedInUser = useSelector(selectLoggedInUser)
-    // const { email, fname, lname, gender, dob } = loggedInUser
-    console.log(loggedInUser)
-    const [selectedUser] = useState(loggedInUser)
-
+    const formatted_dob = new Date(loggedInUser.dob)
+    const user_dob = formatted_dob.getFullYear() + "-" + (formatted_dob.getMonth() + 1) + "-" + formatted_dob.getDate()
     const initialState = {
-        id: selectedUser._id,
-        fname: selectedUser.fname,
-        lname: selectedUser.lname,
-        email: selectedUser.email,
-        gender: selectedUser.gender,
-        dob: selectedUser.dob,
-        password: '',
-        confirmPassword: ''
+        id: loggedInUser._id,
+        fname: loggedInUser.fname,
+        lname: loggedInUser.lname,
+        email: loggedInUser.email,
+        gender: loggedInUser.gender,
+        dob: user_dob
     }
 
     const [formValues, setFormValues] = useState(initialState)
 
 
-    const { fname, lname, email, gender, password, confirmPassword, dob } = formValues
+    const { fname, lname, email, gender, dob } = formValues
 
     const history = useHistory()
 
@@ -38,27 +34,12 @@ const UpdateProfile = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log(formValues)
 
         dispatch(updateuser(formValues))
         history.push('/dashboard')
 
         setFormValues(initialState)
     }
-    // const userId = loggedInUser._id
-
-    // useEffect(() => {
-    //     const fetchUser = async (req, res) => {
-    //         const response = await axios.get(`http://127.0.0.1:5000/api/v1/users/fetchuser/${userId}`)
-    //         const editUser = response.data
-    //         setSelectedUser(editUser)
-    //     }
-
-
-
-    //     // return () => { }
-    //     fetchUser()
-    // }, [])
 
     return (
         <div className="bg-red-50 py-10 px-8 my-auto" >
@@ -74,7 +55,7 @@ const UpdateProfile = () => {
                         <form onSubmit={e => handleSubmit(e)}  >
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-8">
                                 <label className="block text-left shadow-lg">
-                                    <span className="text-white text-md md:text-lg"
+                                    <span className="text-paylend-dark text-md md:text-lg"
                                     >First Name</span
                                     >
                                     <input
@@ -89,7 +70,7 @@ const UpdateProfile = () => {
                                 </label>
 
                                 <label className="block text-left shadow-lg">
-                                    <span className="text-white text-md md:text-lg"
+                                    <span className="text-paylend-dark text-md md:text-lg"
                                     >Last Name</span>
                                     <input
                                         type="text"
@@ -103,14 +84,16 @@ const UpdateProfile = () => {
                                 </label>
 
                                 <label className="block text-left shadow-lg">
-                                    <span className="text-white text-md md:text-lg"
+                                    <span className="text-paylend-dark text-md md:text-lg"
                                     >Email address</span
                                     >
                                     <input
                                         type="email"
                                         value={email}
+                                        readOnly
+                                        disabled
                                         name="email"
-                                        className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-paylend focus:ring focus:ring-paylend focus:ring-opacity-50"
+                                        className="mt-1 block w-full rounded-md bg-gray-200  border-gray-300 shadow-sm focus:border-paylend focus:ring focus:ring-paylend focus:ring-opacity-50"
                                         placeholder="name@yourdomain.com"
                                         onChange={(e) => handleChange(e)}
                                         required
@@ -120,16 +103,15 @@ const UpdateProfile = () => {
 
 
                                 <label className="block text-left shadow-lg">
-                                    <span className="text-white text-md md:text-lg"
-                                    >Date of birth</span
-                                    >
+                                    <span className="text-paylend-dark text-md md:text-lg"
+                                    >Date of birth</span>
                                     <input
                                         type="date"
                                         value={dob}
                                         name="dob"
+                                        min="1950-01-01" max="2020-12-31"
                                         className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-paylend focus:ring focus:ring-paylend focus:ring-opacity-50"
                                         onChange={(e) => handleChange(e)}
-                                        required
                                     />
                                 </label>
 
@@ -138,11 +120,11 @@ const UpdateProfile = () => {
 
 
                             <div className="mx-auto flex justify-center py-8" >
-                                <label className="block text-center">
-                                    {/* <span className="text-white text-md md:text-lg">Gender</span> */}
+                                <label className="block text-paylend-dark">
+                                    {/* <span className="text-paylend-dark text-md md:text-lg">Gender</span> */}
 
                                     <div className="flex gap-6 pt-3 items-center " >
-                                        {/* <span className="text-white text-md md:text-lg">Gender</span> */}
+                                        <span className="text-paylend-dark text-md md:text-lg"> Gender:</span>
                                         <span className="flex gap-2">
                                             <input
                                                 type="radio"
@@ -155,7 +137,7 @@ const UpdateProfile = () => {
                                                 onChange={(e) => handleChange(e)}
                                                 required
                                             />
-                                            <label htmlFor='male' className='text-white cursor-pointer'>Male</label>
+                                            <label htmlFor='male' className='text-paylend-dark cursor-pointer'>Male</label>
                                         </span>
 
                                         <span className="flex gap-2 cursor-pointer" >
@@ -164,50 +146,17 @@ const UpdateProfile = () => {
                                                 value='Female'
                                                 id="female"
                                                 name="gender"
-                                                checked={gender}
+                                                checked={gender === 'Female'}
                                                 className="mt-1 block rounded-md cursor-pointer border-gray-300 shadow-sm focus:border-paylend focus:ring focus:ring-paylend focus:ring-opacity-50"
                                                 onChange={(e) => handleChange(e)}
                                                 required
                                             />
-                                            <label htmlFor='female' className='text-white cursor-pointer'>Female</label>
+                                            <label htmlFor='female' className='text-paylend-dark cursor-pointer'>Female</label>
                                         </span>
                                     </div>
 
 
                                 </label>
-                            </div>
-
-                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-8">
-                                <label className="block text-left shadow-lg">
-                                    <span className="text-white text-md md:text-lg"
-                                    >Password</span
-                                    >
-                                    <input
-                                        type="password"
-                                        value={password}
-                                        name="password"
-                                        className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-paylend focus:ring focus:ring-paylend focus:ring-opacity-50"
-                                        placeholder="Password"
-                                        onChange={(e) => handleChange(e)}
-                                        required
-                                    />
-                                </label>
-
-                                <label className="block text-left shadow-lg">
-                                    <span className="text-white text-md md:text-lg"
-                                    >Confirm Password</span
-                                    >
-                                    <input
-                                        type="password"
-                                        value={confirmPassword}
-                                        name="confirmPassword"
-                                        className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-paylend focus:ring focus:ring-paylend focus:ring-opacity-50"
-                                        placeholder="Confirm Password"
-                                        onChange={(e) => handleChange(e)}
-                                        required
-                                    />
-                                </label>
-
                             </div>
 
                             <div className="pt-12 pb-2 text-center">
