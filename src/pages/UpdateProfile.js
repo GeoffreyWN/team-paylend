@@ -106,7 +106,7 @@ const UpdateProfile = () => {
                                     <span className="text-paylend-dark text-md md:text-lg"
                                     >Date of birth</span>
                                     <input
-                                        type="date"
+                                        type="text"
                                         value={dob}
                                         name="dob"
                                         min="1950-01-01" max="2020-12-31"
