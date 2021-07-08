@@ -24,7 +24,7 @@ const Header = () => {
             <nav className=" py-6 flex max-w-screen-xl  mx-auto ">
                 {/* left */}
                 <div className="">
-                    <h1 className="text-3xl text-white cursor-pointer scale-100 transition duration-200 transform hover:scale-105 hover:text-red-200 hover:font-semibold " onClick={() => history.push('/dashboard')}>Team Paylend</h1>
+                    <h1 className="text-2xl md:text-3xl text-white cursor-pointer scale-100 transition duration-200 transform hover:scale-105 hover:text-red-200 hover:font-semibold " onClick={() => history.push('/dashboard')}>Team Paylend</h1>
                 </div>
                 <div className="flex-grow">
                 </div>

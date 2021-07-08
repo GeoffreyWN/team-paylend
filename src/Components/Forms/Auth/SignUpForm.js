@@ -41,10 +41,10 @@ const SignUpForm = () => {
                 Sign Up
             </h2>
 
-            <div className="mt-12 max-w-lg mx-auto ">
+            <div className="mt-6 md:mt-12 max-w-lg mx-auto ">
 
                 <form onSubmit={e => handleSubmit(e)}  >
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-8">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
                         <label className="block text-left shadow-lg">
                             <span className="text-white text-md md:text-lg"
                             >First Name</span
